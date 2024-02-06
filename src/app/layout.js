@@ -11,6 +11,65 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+  <meta charSet="utf-8" />
+  <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=0"
+  />
+  <title>BookFlows</title>
+  <link href="css/bootstrap.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="css/animate.css" type="text/css" />
+  <link href="css/owl.carousel.css" rel="stylesheet" />
+  <link href="css/owl.theme.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/jquery.fancybox.css" type="text/css" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"
+  />
+  {/* Font Icons CSS */}
+  <link rel="stylesheet" href="css/ionicons.css" />
+  {/* Droopmenu CSS */}
+  <link rel="stylesheet" href="css/droopmenu.css" />
+  <link rel="stylesheet" href="css/hr-timePicker.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
+  />
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+    rel="stylesheet"
+  />
+  {/* HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries */}
+  {/* WARNING: Respond.js doesn't work if you view the page via file:// */}
+  {/*[if lt IE 9]>
+
+    <![endif]*/}
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
