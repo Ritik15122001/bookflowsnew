@@ -2,14 +2,34 @@
 import { useState } from "react";
 import FillYourInfo from "./fillyourinfo";
 import { useEffect } from "react";
+import DateCarousel from "./datacarousel";
+import { format, addMonths, subMonths } from 'date-fns';
+import TimeCarousel from "./slotsCarousel";
+
 const BookYourSlots = () => {
+  const [selectedTab, setSelectedTab] = useState("morning"); 
+  const currentDate = new Date();
+  const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth() + 1); // Month is 0-based
+  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
     const [showAppointment, setShowAppointment] = useState(false);
     const [CurrentComp , setCurrentComp] = useState(true);
     const [IsMobile, setIsMobile]=useState(false);
+
+    const handleMonthChange = (increment) => {
+      // Increment can be 1 for next month or -1 for previous month
+      const newDate = new Date(selectedYear, selectedMonth - 1 + increment, 1);
+      setSelectedMonth(newDate.getMonth() + 1); // Month is 0-based in JavaScript Dates
+      setSelectedYear(newDate.getFullYear());
+    };
     const handleBookAppointmentClick = () => {
         setShowAppointment(true);
         setCurrentComp(false)
       };
+
+      
+  const handleTabClick = (tab) => {
+    setSelectedTab(tab);
+  };
 
       useEffect(() => {
         const handleResize = () => {
@@ -44,15 +64,15 @@ const BookYourSlots = () => {
                   <div className="row  slideInRight">
                     <div className="col-md-6 col-xs-6 december">
                       <h4>
-                        <a href="#">
+                        <a href="#" onClick={() => handleMonthChange(-1)}>
                           <img
                             src="/images/year_arrow_left.png"
                             className="img-responsive"
                             alt=""
                           />{" "}
                         </a>{" "}
-                        December{" "}
-                        <a href="#">
+                        {format(new Date(selectedYear, selectedMonth - 1), 'MMMM')}{' '}
+                        <a href="#"  onClick={() => handleMonthChange(1)}>
                           <img
                             src="images/year_arrow_right.png"
                             className="img-responsive"
@@ -61,17 +81,17 @@ const BookYourSlots = () => {
                         </a>
                       </h4>
                     </div>
-                    <div className="col-md-6 col-xs-6 december">
+                    <div className="col-md-4 col-xs-6 december">
                       <h4>
-                        <a href="#">
+                        <a href="#" onClick={() => handleMonthChange(-12)}>
                           <img
                             src="images/year_arrow_left.png"
                             className="img-responsive"
                             alt=""
                           />{" "}
                         </a>{" "}
-                        2024{" "}
-                        <a href="#">
+                        {format(new Date(selectedYear, selectedMonth - 1), 'yyyy')}{' '}
+                        <a href="#" onClick={() => handleMonthChange(12)}>
                           <img
                             src="images/year_arrow_right.png"
                             className="img-responsive"
@@ -90,165 +110,8 @@ const BookYourSlots = () => {
             </div>
           </div>
           <div className="clearfix" />
-          <div className="col-md-12 owl-demo5  owl-theme text-center">
-            <div className="owl-demo5" style={{display:'flex',justifyContent:'space-between'}}>
-            {!IsMobile && (
-                <> 
-                <div className="item ">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div className="item">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-          
-              <div className="item">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div className="item">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-          
-         
-              <div className="item">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div className="item">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-              </>
-                 )}
-              <div className="item">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div className="item">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div className="item">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div className="item">
-                <a href="#">
-                  <div className="date_box">
-                    <div className="date_top">
-                      <p>15</p>
-                    </div>
-                    <div className="date_bottom">
-                      <h5>APR</h5>
-                      <h3>|</h3>
-                      <h3>THU</h3>{" "}
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div className="customNavigation5">
-              <a className="btn prev5">
-                <img src="/images/l_o.png" />
-              </a>
-              <a className="btn next5">
-                <img src="/images/r_o.png" />
-              </a>
-            </div>
-          </div>
+
+      <DateCarousel selectedMonth={selectedMonth} selectedYear={selectedYear}></DateCarousel>
         </div>
         <div className="clearfix" />
       </div>
@@ -259,26 +122,129 @@ const BookYourSlots = () => {
           <div className="clearfix" />
           <div className="col-md-12 morning info_bottom2">
             <ul className="nav nav-tabs">
-              <li className="active">
-                <a data-toggle="tab" href="#home">
+              <li className={selectedTab === "morning" ? "active" : ""} >
+                <a data-toggle="tab" href="#morning" onClick={() => handleTabClick("morning")}>
                   Morning Slots
                 </a>
               </li>
-              <li>
-                <a data-toggle="tab" href="#menu1">
+              <li className={selectedTab === "afternoon" ? "active" : ""}>
+                <a data-toggle="tab" href="#afternoon" onClick={() => handleTabClick("afternoon")}>
                   Afternoon Slots
                 </a>
               </li>
-              <li>
-                <a data-toggle="tab" href="#menu2">
+              <li className={selectedTab === "evening" ? "active" : ""}>
+                <a data-toggle="tab" href="#evening" onClick={() => handleTabClick("evening")}>
                   Evening Slots
                 </a>
               </li>
             </ul>
             <div className="tab-content">
-              <div id="home" className="tab-pane fade in active">
-                <ul className="timings_list">
+  <div id="home" className="tab-pane fade in active">
+  {/* <TimeslotsCarousel></TimeslotsCarousel> */}
+    <ul className="timings_list">
+      {IsMobile
+        ? (
+          <>
+          <TimeCarousel></TimeCarousel>
+            {/* <div id="first">
+            <li className="zoomIn">
+              <a href="#">07:00 AM</a>
+            </li>
+            <li className="zoomIn">
+              <a href="#" className="active">
+                08:00 AM
+              </a>
+            </li>
+            <li className="zoomIn">
+              <a href="#">09:00 AM</a>
+            </li>
+            <li className=" zoomIn">
+                    <a href="#">09:30 AM</a>
+                  </li>
                   <li className=" zoomIn">
+                    <a href="#">10:00 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">10:30 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">11:00 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">11:30 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">07:00 AM</a>
+                  </li>
+                  </div>
+                  <div id="second">
+            <li className="zoomIn">
+              <a href="#">07:00 AM</a>
+            </li>
+            <li className="zoomIn">
+              <a href="#" className="active">
+                08:00 AM
+              </a>
+            </li>
+            <li className="zoomIn">
+              <a href="#">09:00 AM</a>
+            </li>
+            <li className=" zoomIn">
+                    <a href="#">09:30 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">10:00 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">10:30 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">11:00 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">11:30 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">07:00 AM</a>
+                  </li>
+                  </div>
+                  <div id="third">
+            <li className="zoomIn">
+              <a href="#">07:00 AM</a>
+            </li>
+            <li className="zoomIn">
+              <a href="#" className="active">
+                08:00 AM
+              </a>
+            </li>
+            <li className="zoomIn">
+              <a href="#">09:00 AM</a>
+            </li>
+            <li className=" zoomIn">
+                    <a href="#">09:30 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">10:00 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">10:30 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">11:00 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">11:30 AM</a>
+                  </li>
+                  <li className=" zoomIn">
+                    <a href="#">07:00 AM</a>
+                  </li>
+                  </div> */}
+          </>
+        )
+        : (
+        
+          <>
+            <li className=" zoomIn">
                     <a href="#">07:00 AM</a>
                   </li>
                   <li className=" zoomIn">
@@ -352,25 +318,28 @@ const BookYourSlots = () => {
                   <li className=" zoomIn">
                     <a href="#">11:30 AM</a>
                   </li>
-                </ul>
-                <div className="text-center b_a_btn">
-                  <a  className="btn btn_new2" onClick={handleBookAppointmentClick}>
-                    Book Appointment
-                  </a>
-                </div>
-              </div>
-              <div id="menu1" className="tab-pane fade">
-                <div className="updated">
-                  <h3>Timing Slots To Be Updated</h3>
-                </div>
-              </div>
-              <div id="menu2" className="tab-pane fade">
-                <div className="updated">
-                  <h3>Timing Slots To Be Updated</h3>
-                </div>
-              </div>
-            </div>
-          </div>
+          </>
+        )
+      }
+    </ul>
+    <div className="text-center b_a_btn">
+      <a className="btn btn_new2" onClick={handleBookAppointmentClick}>
+        Book Appointment
+      </a>
+    </div>
+  </div>
+  <div id="menu1" className="tab-pane fade">
+    <div className="updated">
+      <h3>Timing Slots To Be Updated</h3>
+    </div>
+  </div>
+  <div id="menu2" className="tab-pane fade">
+    <div className="updated">
+      <h3>Timing Slots To Be Updated</h3>
+    </div>
+  </div>
+</div>
+</div>
         </div>
         <div className="clearfix" />
         <div className="row">

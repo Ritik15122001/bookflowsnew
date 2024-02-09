@@ -230,21 +230,43 @@ ul {
 
 
 
+.slick-track {
+	left: 30px;
+}
+@media(max-width:767px) {
+	.slick-track {
+		left: 3px;
+	}
+
+	.slick-prev{
+		left: -15px;
+	}
+	.slick-next {
+		right: -15px;
+	}
+}
+
 .date_box {
-	width: 90px;
-	border: 1px solid #5ce0ff;padding-top:3px; padding-bottom:3px;
+	width: 100px;
+	border: 1px solid #5ce0ff;
 	text-align: center;border-radius: 20px;background: rgba(255, 255, 255,.1);
 }
 
+.date_box:active {
+	background: rgba(255, 255, 255, 0.3); /* Darker background color on click */
+  }
+
 @media(max-width:767px) {
 	.date_box {
-		width: 80px;
+		width: 85px;
 		border: 1px solid #5ce0ff;padding-top:3px; padding-bottom:3px;
 		text-align: center;border-radius: 20px;background: rgba(255, 255, 255,.1);
 	}
 }
 
-
+.slick-slide{
+	margin-top: 25px;
+}
 
 .date_top {	
 	padding:0 15px;}
@@ -280,7 +302,7 @@ ul {
 
 
 
-.book_slot{padding-bottom:20px;}
+.book_slot{padding-bottom:9px;}
 
 
 .lower_form {
@@ -679,10 +701,10 @@ ul.mid li a:hover {
 
 
 
-.book_demo2{background:url(../images/blue_bg.jpg) no-repeat center center;background-size: cover;background-attachment:fixed; padding-top:0;padding-bottom:50px;}
+.book_demo2{background:url(../images/blue_bg.jpg) no-repeat center center;background-size: cover;background-attachment:fixed; padding-top:0;}
 
 
-.opaque_slot{background:rgba(255, 255, 255 ,.1);padding-top:30px; padding-bottom:20px;}
+.opaque_slot{background:rgba(255, 255, 255 ,.1);padding-top:25px; padding-bottom:12px;}
 
 .top_book_slot{border-top: 1px solid #fff;border-bottom: 1px solid #fff; padding-top: 10px; padding-bottom: 10px;}
 
@@ -718,7 +740,7 @@ ul.mid li a:hover {
 }
 
 
-.b_a_btn{margin-top:20px;}
+.b_a_btn{margin-top:8px;}
 
 .updated h3{text-align: center; color: #fff;}
 
@@ -752,13 +774,22 @@ ul.timings_list li a {
     background: rgba(25, 176, 237,.3);text-decoration: none;
 }
 
-ul.timings_list li a.active{background:#315e9b;}
+ul.timings_list li a:hover {
+	background: rgba(25, 176, 237, 0.6); /* Updated background color on hover */
+	color: #fff; /* Updated text color on hover */
+  }
+  
+ 
+  ul.timings_list li a:active {
+	background: rgba(25, 176, 237, 0.8); /* Darker background color on click */
+	color: #fff; /* Updated text color on click */
+  }
 
 
 
 
 
-.please_enter{background:url(../images/please_enter.jpg) no-repeat center center;background-size: cover; padding-top:100px;padding-bottom:100px;}
+.please_enter{background:url(../images/please_enter.jpg) no-repeat center center;background-size: cover; padding-top:100px;padding-bottom:72px;}
 
 .verify_wrap{border-radius: 24px; overflow: hidden;border: 1px solid #5ce0ff;}
 .verify_left{width:50%;float:left;background:rgba(255,255,255,.1);height:465px;text-align: center;}
@@ -771,7 +802,7 @@ ul.timings_list li a.active{background:#315e9b;}
 
 
 
-.colony{background:url(../images/blue_bg.jpg) no-repeat center center;background-size: cover;background-attachment:fixed; padding-top:55px;padding-bottom:140px;}
+.colony{background:url(../images/blue_bg.jpg) no-repeat center center;background-size: cover;background-attachment:fixed; padding-top:55px;padding-bottom:66px;}
 
 .colony_top{background:rgba(255,255,255,.1);border: 1px solid #5ce0ff;padding:20px 25px;border-radius: 26px;}
 
@@ -826,8 +857,10 @@ ul.timings_list li a.active{background:#315e9b;}
 }
 
 
-
-
+a:hover, a:focus {
+    color: #23527c;
+    text-decoration: none;
+}
 
 
 
@@ -861,9 +894,9 @@ ul.timings_list li a.active{background:#315e9b;}
 
 .congo{
 	
-	background:url(../images/please_enter.jpg) no-repeat center center;background-size: cover;padding-top:5px;}
+	background:url(../images/please_enter.jpg) no-repeat center center;background-size: cover;padding-top: 8px;}
 
-.congo_top{text-align: center;}
+.congo_top{height: 29rem; text-align: center;}
 .congo_top p{font-size:18px; color: #fff; margin-top:30px;}
 
 .fill_box{width:80%; margin-left: 80px;   background:rgba(255,255,255,.1);border: 1px solid #5ce0ff;padding:30px 20px 30px 20px;border-radius: 26px; margin-top:30px;text-align: center;margin-bottom: 70px;}
@@ -1026,7 +1059,8 @@ ul.timings_list li a.active{background:#315e9b;}
 	
 	.please_enter {   
     padding-top:60px;
-    padding-bottom:60px;}
+	padding-bottom: 0px;
+}
 	
 	
 	
@@ -1074,10 +1108,12 @@ ul.timings_list li a.active{background:#315e9b;}
 	.tick_top img{max-width:50px;margin-bottom: 15px;}
 	
 	.colony {padding-top:60px;
-    padding-bottom:62%;}
+    padding-bottom:30%;}
 	
 	
-	.congo{padding-top:50px;padding-bottom:62%;}
+	.congo{padding-top:50px;
+	  padding-bottom: 58%;
+	}
 	
 	
 	
@@ -1240,7 +1276,7 @@ ul.timings_list li a.active{background:#315e9b;}
 @media(max-width:767px) {
 	.info_bottom2 ul.nav-tabs li a {
     color: #c8eaf7;
-    padding: 6px 0px;
+    padding: 6px 3px;
     background: none;
     border-radius: 0;
     font-size: 15px;
@@ -1299,7 +1335,8 @@ owl-demo5 .item {
     background: url(../images/blue_bg_new.jpg) no-repeat center center;
     background-size: cover;
     background-attachment: fixed;    
-    padding-bottom: 50px;
+    padding-bottom: 40%;
+
 }
 	
 	
@@ -1307,8 +1344,8 @@ owl-demo5 .item {
 	.please_enter {
     background: url(../images/please_enter_new.jpg) no-repeat center center;
     background-size: cover;
-    padding-top: 100px;
-    padding-bottom: 165px;
+    padding-top: 15px;
+	padding-bottom: 48%;
 }
 	
 	
