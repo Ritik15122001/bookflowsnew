@@ -5,9 +5,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns';
 
 const DateCarousel = ({ selectedMonth, selectedYear }) => {
-  // const selectedMonth =2;
-  // const selectedYear = 2023;
   const [dateItems, setDateItems] = useState([]);
+  const [selectedDateIndex, setSelectedDateIndex] = useState(null);
 
   const sliderRef = useRef(null);
 
@@ -32,16 +31,21 @@ const DateCarousel = ({ selectedMonth, selectedYear }) => {
   }, [selectedMonth, selectedYear]);
 
   const settings = {
-    dots: false,
     infinite: true,
-    speed: 1000,
     slidesToShow: 9,
     slidesToScroll: 1,
+    autoplay: false,
+    speed: 200,
+    dots: false,
+    arrows: true,
+    swipeToSlide: true,
+    touchMove: true,
     responsive: [
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 4,
+          arrows: false,
         },
       },
     ],
@@ -59,6 +63,12 @@ const DateCarousel = ({ selectedMonth, selectedYear }) => {
     }
   };
 
+  const handleDateBoxClick = (index) => {
+    setSelectedDateIndex(index);
+    // Perform any additional logic you need when a date_box is clicked
+    console.log(`Clicked on date_box at index ${index}`);
+  };
+
   return (
     <div>
       <div className="customNavigation5">
@@ -73,18 +83,20 @@ const DateCarousel = ({ selectedMonth, selectedYear }) => {
       <Slider ref={sliderRef} {...settings}>
         {dateItems.map((item, index) => (
           <div key={index} className={`item`}>
-            <a href="#">
-              <div className="date_box" style={{ flex: '0 0 auto' }}>
-                <div className="date_top">
-                  <h3 style={{ color: 'white' }}>{item.date}</h3>
-                </div>
-                <div className="date_bottom">
-                  <h5 style={{ color: 'white' }}>{item.month}</h5>
-                  <h3 style={{ color: 'white' }}>{item.separator}</h3>
-                  <p style={{ color: 'white' }}>{item.day}</p>
-                </div>
+            <div
+              className={`date_box ${selectedDateIndex === index ? 'active' : ''}`}
+              style={{ flex: '0 0 auto' }}
+              onClick={() => handleDateBoxClick(index)}
+            >
+              <div className="date_top">
+                <h3 style={{ color: 'white' }}>{item.date}</h3>
               </div>
-            </a>
+              <div className="date_bottom">
+                <h5 style={{ color: 'white' }}>{item.month}</h5>
+                <h3 style={{ color: 'white' }}>{item.separator}</h3>
+                <p style={{ color: 'white' }}>{item.day}</p>
+              </div>
+            </div>
           </div>
         ))}
       </Slider>

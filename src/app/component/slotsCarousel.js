@@ -49,12 +49,12 @@ const TimeCarousel = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: false,
-    speed: 2000,
-    autoplaySpeed: 3000,
+    speed: 500,
+
     dots: false,
     arrows: false,
-    swipeToSlide: true, // Allow swipe to slide
-    touchMove: true, // Allow touch to move
+    swipeToSlide: true, 
+    touchMove: true, 
   };
 
   return (

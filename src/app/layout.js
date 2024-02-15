@@ -1,5 +1,10 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import '@mantine/core/styles.css';
+// import '@mantine/dates/styles.css';
+// import '@mantine/dropzone/styles.css';
+// import '@mantine/code-highlight/styles.css';
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,7 +54,7 @@ export default function RootLayout({ children }) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
   <link
-    href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght6@500&display=swap"
     rel="stylesheet"
   />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
