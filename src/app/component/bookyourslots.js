@@ -1,4 +1,5 @@
 "use client"
+import React from 'react';
 import { useState } from "react";
 import FillYourInfo from "./fillyourinfo";
 import { useEffect } from "react";
@@ -10,6 +11,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Link from '@mui/material/Link';
+import axios from 'axios';
+
 
 
 
@@ -25,9 +28,109 @@ const BookYourSlots = () => {
     const [value, setValue] = useState(null);
     const [openDatePicker, setOpenDatePicker] = useState(false);
     const [openDatePicker2, setOpenDatePicker2] = useState(false);
+    const [selectedDay, setSelectedDay]= useState("Monday")
+    const [morningtimingsData, setMorningTimingsData] = useState([]);
+    const [aftertimingsData, setAfternoonTimingsData] = useState([]);
+    const [eveningtimingsData, setEveningTimingsData] = useState([]);
+    const [date, setDate]= useState();
+    const [slot, setSlots] = useState();
+    const [number,setNumber]= useState();
+    const [bookedSlot, setBookedSlot] = useState({
+      morning: [],
+      afternoon: [],
+      evening: [],
+    });
+    
+    const handleTimeSlotClick = (time) => {
+      const updatedBookedSlot = {
+        morning: selectedTab === 'morning' ? [time] : [],
+        afternoon: selectedTab === 'afternoon' ? [time] : [],
+        evening: selectedTab === 'evening' ? [time] : [],
+      };
+      setSlots(time);
+      setBookedSlot(updatedBookedSlot);
+    };
   
+    // const morningtimingsData = [
+    //   "07:00 AM", "08:00 AM", "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
+     
+    // ];
+    // const aftertimingsData = [
+    //   "07:00 PM", "08:00 PM", "09:00 PM", "09:30 PM", "10:00 PM", "10:30 PM", "11:00 PM", "11:30 PM",
+     
+    // ];
+    // const eveningtimingsData = [
+    //   "07:00 AM", "08:00 AM", "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
+     
+    // ];
 
+    const getday =(day)=>{
+      setSelectedDay(day)
+      getslots()
+    }
+
+    const getDate =(dateitem)=>{
+      // localStorage.setItem("selectedDate", dateitem);
+      setDate(dateitem)
+      console.log("dateitem-------->"+dateitem)
+    }
+    
+    const getnumber = (Number)=>{
+       postData(Number)
+    }
+    console.log("Number------>"+number)
+    
+
+    console.log("slectedslotssss-->"+slot);
+    localStorage.setItem("selectedSlots", slot);
+    localStorage.setItem("selectedDate", date);
+    
+
+
+    const getslots = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/appointment');
+        const data = response.data;
+        const filteredData = data.filter(item => item.day.includes(selectedDay));
+        console.log(filteredData)
+        if (filteredData.length > 0) {
+          const { morning, afternoon, evening } = filteredData[0].timeSlots;
+          setMorningTimingsData(morning);
+          setAfternoonTimingsData(afternoon);
+          setEveningTimingsData(evening);
+        } else {
+          console.error('No data found for the selected day');
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    
+    const postData = async (phoneNumber) => {
+      try {
+        const dataToSend = {
+          serialNo: "12345678", 
+          date: date, 
+          bookedSlot: bookedSlot,
+          phoneNumber:phoneNumber, 
+        };
+    
+        const response = await axios.post('http://localhost:8000/appointment-details', dataToSend);
+        console.log('Response:', response.data);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
  
+   
+    
+    // 
+    useEffect(() => {
+      getslots();
+      postData();
+    }, []); 
+
+
     const handleLinkClick = () => {
       setOpenDatePicker(true);
     };
@@ -53,9 +156,8 @@ const BookYourSlots = () => {
     };
 
     const handleMonthChange = (increment) => {
-      // Increment can be 1 for next month or -1 for previous month
       const newDate = new Date(selectedYear, selectedMonth - 1 + increment, 1);
-      setSelectedMonth(newDate.getMonth() + 1); // Month is 0-based in JavaScript Dates
+      setSelectedMonth(newDate.getMonth() + 1); 
       setSelectedYear(newDate.getFullYear());
     };
     const handleBookAppointmentClick = () => {
@@ -215,7 +317,7 @@ const BookYourSlots = () => {
           </div>
           <div className="clearfix" />
 
-      <DateCarousel selectedMonth={selectedMonth} selectedYear={selectedYear}></DateCarousel>
+      <DateCarousel selectedMonth={selectedMonth} selectedYear={selectedYear} getday={getday} getDate={getDate}></DateCarousel>
         </div>
         <div className="clearfix" />
       </div>
@@ -244,192 +346,43 @@ const BookYourSlots = () => {
             </ul>
             <div className="tab-content">
             <div id="morning" className={`tab-pane fade ${selectedTab === "morning" ? "in active" : ""}`}>
-    <ul className="timings_list">
-      {IsMobile
-        ? (
-          <>
-          <TimeCarousel></TimeCarousel>
-        
-          </>
-        )
-        : (
-        
-          <>
-            <li className=" zoomIn">
-                    <a href="#">07:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#" className="active">
-                      08:00 AM
-                    </a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">09:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">09:30 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">10:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">10:30 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">11:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">11:30 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">07:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">08:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">09:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">09:30 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">10:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">10:30 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">11:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">11:30 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">07:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">08:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">09:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">09:30 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">10:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">10:30 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">11:00 AM</a>
-                  </li>
-                  <li className=" zoomIn">
-                    <a href="#">11:30 AM</a>
-                  </li>
-          </>
-        )
-      }
-    </ul>
+            <ul className="timings_list">
+    {IsMobile ? (
+      <TimeCarousel></TimeCarousel>
+    ) : (
+      <>
+        {morningtimingsData.map((time, index) => (
+          <li key={index} className="zoomIn">
+            <a href="#" className={index === 1 ? "active" : ""} onClick={() => handleTimeSlotClick(time)}>
+              {time}
+            </a>
+          </li>
+        ))}
+      </>
+    )}
+  </ul>
     <div className="text-center b_a_btn">
       <a className="btn btn_new2" onClick={handleBookAppointmentClick}>
-        Book Appointment
+      Book Appointment
       </a>
     </div>
   </div>
   <div id="afternoon" className={`tab-pane fade ${selectedTab === "afternoon" ? "in active" : ""}`}>
-    <ul className="timings_list">
-      {IsMobile
-        ? (
-          <>
-          <TimeCarousel></TimeCarousel>
-        
-          </>
-        )
-        : (
-        
-          <>
-            <li className=" zoomIn">
-            <a href="#">07:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#" classNPMe="active">
-                      08:00 PM
-                    </a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">07:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">08:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">07:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">08:00 PM</a>
-                  </li>
-              
-          </>
-        )
-      }
-    </ul>
+  <ul className="timings_list">
+    {IsMobile ? (
+      <TimeCarousel></TimeCarousel>
+    ) : (
+      <>
+        {aftertimingsData.map((time, index) => (
+          <li key={index} className="zoomIn">
+            <a href="#" className={index === 1 ? "active" : ""}>
+              {time}
+            </a>
+          </li>
+        ))}
+      </>
+    )}
+  </ul>
     <div className="text-center b_a_btn">
       <a className="btn btn_new2" onClick={handleBookAppointmentClick}>
         Book Appointment
@@ -437,95 +390,21 @@ const BookYourSlots = () => {
     </div>
   </div>
   <div id="evening" className={`tab-pane fade ${selectedTab === "evening" ? "in active" : ""}`}>
-    <ul className="timings_list">
-      {IsMobile
-        ? (
-          <>
-          <TimeCarousel></TimeCarousel>
-        
-          </>
-        )
-        : (
-        
-          <>
-            <li className=" zoomIn">
-            <a href="#">07:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#" classNPMe="active">
-                      05:00 PM
-                    </a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">06:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">07:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">08:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">07:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">08:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">09:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">10:30 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:00 PM</a>
-                  </li>
-                  <li classNPMe=" zoomIn">
-                    <a href="#">11:30 PM</a>
-                  </li>
-          </>
-        )
-      }
-    </ul>
+  <ul className="timings_list">
+    {IsMobile ? (
+      <TimeCarousel></TimeCarousel>
+    ) : (
+      <>
+        {eveningtimingsData.map((time, index) => (
+          <li key={index} className="zoomIn">
+            <a href="#" className={index === 1 ? "active" : ""}>
+              {time}
+            </a>
+          </li>
+        ))}
+      </>
+    )}
+  </ul>
     <div className="text-center b_a_btn">
       <a className="btn btn_new2" onClick={handleBookAppointmentClick}>
         Book Appointment
@@ -556,7 +435,7 @@ const BookYourSlots = () => {
    
   </div>
        )}
-        {showAppointment && <FillYourInfo />} 
+        {showAppointment && <FillYourInfo getnumber={getnumber} />} 
   </>
   </LocalizationProvider>
 

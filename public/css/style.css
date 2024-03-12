@@ -3,11 +3,13 @@
 /* CSS Document */
 
 html {
+  margin: 0;
+  padding: 0;
   height: 100%;
 }
 
 body {
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
   font-family: "Roboto", sans-serif;
 }
@@ -181,7 +183,6 @@ ul {
 }
 
 .book_demo {
-  margin-top: 15px;
 }
 
 .book_demo h2 {
@@ -253,11 +254,12 @@ ul {
 }
 
 .date_box {
+  height: 14rem;
   width: 100px;
-  border: 1px solid #5ce0ff;
+  border: 1px solid #5ce0ff91;
   text-align: center;
   border-radius: 20px;
-  background: rgba(38, 38, 38, 0.1);
+  background: rgb(255 255 255 / 11%);
   cursor: pointer;
   transition: background 0.3s; /* Add a transition for a smooth effect */
 }
@@ -321,12 +323,11 @@ ul {
 }
 
 .date_box.active {
-  background: #0c39769c;
-  border: 1px solid #043a53;
+  background: #203b7b6d;
+  border: 1px solid #203b7b6d;
 }
 
 .book_slot {
-  padding-bottom: 9px;
 }
 
 .lower_form {
@@ -729,11 +730,12 @@ ul.mid li a:hover {
 }
 
 .book_demo2 {
-  height: 100vh;
+  height: 100%;
   background: url(../images/blue_bg.jpg) no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
   padding-top: 0;
+  overflow: auto;
 }
 
 .opaque_slot {
@@ -803,9 +805,10 @@ ul.mid li a:hover {
 .info_bottom2 ul.nav-tabs li.active a {
   background: none;
   border: none;
-  border-bottom: 3px solid;
-  border-image: linear-gradient(45deg, purple, orange) 1;
+  border-bottom: 5px solid;
+  border-image: linear-gradient(45deg, #e77455, #ae4cf5, #7e59e6) 1;
   color: #fff;
+  border-radius: 10px;
 }
 
 .b_a_btn {
@@ -818,6 +821,7 @@ ul.mid li a:hover {
 }
 
 .b_a_btn .btn_new2 {
+  font-weight: 600;
   color: #1a7ef1;
   font-size: 17px;
   background: #fff;
@@ -832,7 +836,7 @@ ul.mid li a:hover {
 ul.timings_list {
   list-style: none;
   text-align: left;
-  margin-top: 30px;
+  margin-top: 50px;
   text-align: center;
 }
 
@@ -843,13 +847,13 @@ ul.timings_list li {
 }
 
 ul.timings_list li a {
-  border: 1px solid #5ce0ff;
+  border: 1px solid #5ce0ffa1;
   color: #fff;
   text-align: center;
   padding: 13px 16px;
   border-radius: 10px;
   font-size: 20px;
-  background: rgba(25, 176, 237, 0.3);
+  background: rgb(255 255 255 / 11%);
   text-decoration: none;
 }
 
@@ -877,9 +881,10 @@ ul.timings_list li a:focus {
 .please_enter {
   display: flex;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   background: url(../images/please_enter.jpg) no-repeat center center;
   background-size: cover;
+  overflow: auto;
 }
 
 .verify_wrap {
@@ -915,17 +920,21 @@ ul.timings_list li a:focus {
 }
 
 .colony {
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
   background: url(../images/blue_bg.jpg) no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
-  padding-top: 90px;
+  overflow: auto;
 }
 
 .colony_top {
+  margin-top: 10px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid #5ce0ff;
-  padding: 20px 25px;
+  padding: 15px 25px;
   border-radius: 26px;
 }
 
@@ -953,7 +962,7 @@ ul.timings_list li a:focus {
 }
 .cc_wrap_right p {
   color: #fff;
-  margin-top: 7px;
+  margin-top: 10px;
   font-size: 21px;
   font-weight: 400;
 }
@@ -1018,7 +1027,7 @@ a:focus {
   border: 1px solid #5ce0ff;
   padding: 50px 30px 30px 30px;
   border-radius: 26px;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 .confirmed h2 {
   color: #fff;
@@ -1026,9 +1035,9 @@ a:focus {
   margin-bottom: 0;
   text-align: center;
   border-bottom: 1px solid #fff;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-  font-size: 24px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  font-size: 20px;
 }
 
 .confirm_right p {
@@ -1058,9 +1067,10 @@ a:focus {
 .congo {
   display: flex;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   background: url(../images/please_enter.jpg) no-repeat center center;
   background-size: cover;
+  overflow: auto;
 }
 
 .congo_top {
@@ -1161,6 +1171,7 @@ a:focus {
 .fill_buttons .btn_new2 {
   color: #1a7ef1;
   font-size: 18px;
+  font-weight: 600;
   background: #fff;
   padding: 10px 45px;
   border-radius: 38px;
@@ -1281,11 +1292,6 @@ a:focus {
     padding-top: 30px;
   }
 
-  .please_enter {
-    padding-top: 60px;
-    padding-bottom: 0px;
-  }
-
   .verify_left {
     width: 100%;
     float: none;
@@ -1342,9 +1348,9 @@ a:focus {
   }
 
   .confirm_right {
-    margin-top: 15px;
+    margin-top: 10px;
     border-top: 1px solid #fff;
-    padding-top: 15px;
+    padding-top: 10px;
     text-align: center;
   }
   .cc_wrap_left img {
@@ -1362,16 +1368,6 @@ a:focus {
     margin-bottom: 15px;
   }
 
-  .colony {
-    padding-top: 60px;
-    padding-bottom: 30%;
-  }
-
-  .congo {
-    padding-top: 50px;
-    padding-bottom: 58%;
-  }
-
   .top_book_slot {
     border-top: none;
     border-bottom: none;
@@ -1383,7 +1379,7 @@ a:focus {
     background: rgba(104, 205, 255, 0.2);
     margin-left: 15px;
     margin-right: 15px;
-    margin-top: 30px;
+    margin-top: 0px;
     border: 1px solid #5baff2;
     border-radius: 25px;
   }
@@ -1391,7 +1387,6 @@ a:focus {
     display: inline-block;
     margin-right: 0;
     width: 32%;
-    margin-bottom: 45px;
   }
   ul.timings_list li a {
     border: 1px solid #5ce0ff;
@@ -1407,6 +1402,7 @@ a:focus {
   .colony_buttons .btn_new2 {
     color: #1a7ef1;
     font-size: 16px;
+    font-weight: 600;
     background: #fff;
     padding: 8px 14px;
     border-radius: 21px;
@@ -1433,21 +1429,19 @@ a:focus {
 
   .cc_wrap_right p {
     color: #fff;
-    margin-top: 7px;
-    font-size: 20px;
+    margin-top: 9px;
+    font-size: 18px;
   }
 
   .confirm_right h3 {
     color: #fff;
-    margin-top: 6px;
     margin-bottom: 0;
-    font-size: 22px;
+    font-size: 18px;
   }
 
   .confirm_right p {
     color: #fff;
-    font-size: 20px;
-    margin-top: 7px;
+    font-size: 18px;
   }
 
   .fill_buttons .btn_new2 {
@@ -1583,8 +1577,6 @@ a:focus {
   .please_enter {
     background: url(../images/please_enter_new.jpg) no-repeat center center;
     background-size: cover;
-    padding-top: 15px;
-    padding-bottom: 48%;
   }
 }
 
@@ -1624,63 +1616,67 @@ a:focus {
   .date_box {
     width: 80px;
     border: 1px solid #5ce0ff;
-    padding-top: 3px;
-    padding-bottom: 3px;
     text-align: center;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.1);
   }
 
   .book_demo2 {
-    height: 118vh;
-    background: url(../images/blue_bg_new.jpg) no-repeat center center;
+    height: 100%;
+    background: url(../images/blue_bg_new.jpg);
     background-size: cover;
     background-attachment: fixed;
+    background-repeat: repeat;
+    background-position: center;
   }
 
-  .congo {
-    padding-top: 200px;
-    padding-bottom: 58%;
+  ul.timings_list {
+    list-style: none;
+    text-align: left;
+    margin-top: 30px;
+    text-align: center;
   }
 
   .please_enter {
     background: url(../images/please_enter_new.jpg) no-repeat center center;
     background-size: cover;
-    padding-top: 184px;
-    padding-bottom: 48%;
   }
 
   .colony {
-    height: 130vh;
+    height: 100%;
     background: url(../images/blue_bg.jpg) no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
-    padding-top: 90px;
   }
 }
 
-/* @media (min-width: 1024px) {
+@media (min-width: 1024px) and (max-width: 1200px) {
   .book_demo2 {
-    height: 130vh;
+    height: 125vh;
     background: url(../images/blue_bg.jpg) no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
     padding-top: 0;
   }
-} */
+  .colony {
+    height: 100%;
+    background: url(../images/blue_bg.jpg) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+}
 
 @media (min-width: 375px) {
   .info_bottom2 ul.nav-tabs {
     width: 103%;
-    margin-bottom: 40px;
+    margin-bottom: -2rem;
     padding-bottom: 0;
-    margin-top: 10px;
     text-align: center;
     border-bottom: none;
   }
 }
 
-@media (min-width: 360px) {
+@media (max-width: 360px) {
   .date_box {
     width: 75px;
     border: 1px solid #5ce0ff;
@@ -1705,4 +1701,24 @@ a:focus {
     background-size: cover;
     background-attachment: fixed;
   }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  .slick-track {
+    left: 6px;
+  }
+  ul.timings_list li a {
+    border: 1px solid #5ce0ff;
+    color: #fff;
+    text-align: center;
+    padding: 16px 51px;
+    border-radius: 10px;
+    font-size: 16px;
+    background: rgba(25, 176, 237, 0.3);
+    text-decoration: none;
+  }
+}
+
+.css-1271g8v .MuiPickersLayout-toolbar {
+  display: none;
 }

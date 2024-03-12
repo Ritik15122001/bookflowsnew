@@ -2,9 +2,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns';
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDate } from 'date-fns';
 
-const DateCarousel = ({ selectedMonth, selectedYear }) => {
+const DateCarousel = ({ selectedMonth, selectedYear,getday ,getDate}) => {
   const [dateItems, setDateItems] = useState([]);
   const [selectedDateIndex, setSelectedDateIndex] = useState(null);
 
@@ -27,8 +27,11 @@ const DateCarousel = ({ selectedMonth, selectedYear }) => {
       setDateItems(formattedDates);
     };
 
+    // console.log(formattedDates)
+
     generateDateItems();
   }, [selectedMonth, selectedYear]);
+  
 
   const settings = {
     infinite: true,
@@ -42,9 +45,23 @@ const DateCarousel = ({ selectedMonth, selectedYear }) => {
     touchMove: true,
     responsive: [
       {
-        breakpoint: 768,
+        breakpoint: 481,
         settings: {
           slidesToShow: 4,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 6,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 7,
           arrows: false,
         },
       },
@@ -63,12 +80,13 @@ const DateCarousel = ({ selectedMonth, selectedYear }) => {
     }
   };
 
-  const handleDateBoxClick = (index) => {
+  const handleDateBoxClick = (index,item) => {
     setSelectedDateIndex(index);
-    // Perform any additional logic you need when a date_box is clicked
-    console.log(`Clicked on date_box at index ${index}`);
+    getday(item.day)
+    const date= item.date + " " + item.month +" "+selectedYear+ " " + item.day
+    getDate(date)
   };
-
+ 
   return (
     <div>
       <div className="customNavigation5">
@@ -86,7 +104,7 @@ const DateCarousel = ({ selectedMonth, selectedYear }) => {
             <div
               className={`date_box ${selectedDateIndex === index ? 'active' : ''}`}
               style={{ flex: '0 0 auto' }}
-              onClick={() => handleDateBoxClick(index)}
+              onClick={() => handleDateBoxClick(index,item)}
             >
               <div className="date_top">
                 <h3 style={{ color: 'white' }}>{item.date}</h3>

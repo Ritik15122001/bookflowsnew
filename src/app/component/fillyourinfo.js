@@ -2,13 +2,27 @@
 
 import Verification from "./verification";
 import { useState } from "react";
-const FillYourInfo = () => {
+const FillYourInfo = ({getnumber}) => {
     const [showAppointment, setShowAppointment] = useState(false);
     const [CurrentComp , setCurrentComp] = useState(true);
-    const handleBookAppointmentClick = () => {
+    const [phoneNumber, setPhoneNumber]= useState();
+
+    const handlePhoneNumber =()=>{
+      setPhoneNumber(event.target.value);
+    }
+
+    const handleBookAppointmentClick = (event) => {
+      event.preventDefault(); 
+      if (phoneNumber) {
         setShowAppointment(true);
-        setCurrentComp(false)
-      };
+        setCurrentComp(false);
+        getnumber(phoneNumber);
+      } else {
+        console.error('Please enter a phone number before booking.');
+      }
+    };
+
+  // console.log("phonenumber---->"+phoneNumber)
     return ( 
         <>
         {CurrentComp &&(
@@ -36,6 +50,8 @@ const FillYourInfo = () => {
                 className="form-control"
                 id="name"
                 placeholder="Enter Phone No."
+                value={phoneNumber}
+                onChange={handlePhoneNumber}
               />{" "}
             </div>
             <div className="clearfix" />

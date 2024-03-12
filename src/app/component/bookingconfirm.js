@@ -1,9 +1,51 @@
 "use client"
 import { useState } from "react";
 import BookYourSlots from "./bookyourslots";
+import { useEffect } from "react";
+import axios from "axios";
 const BooingConfirm = () => {
     const [showAppointment, setShowAppointment] = useState(false);
     const [CurrentComp , setCurrentComp] = useState(true);
+    const [name , setname] = useState();
+    const [data, setdata] = useState({
+      name:"",
+      emailId:"",
+      contactNumber:"",
+      address:"",
+      logo:""
+    });
+  
+
+    const selectedSlots = localStorage.getItem('selectedSlots');
+    const selectedDate = localStorage.getItem('selectedDate');
+    const getdoctor = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/businessinfo');
+        const data = response.data[0];
+        console.log(data)
+        setname(data.name)
+        setdata({
+          name: data.name || "",
+          emailId: data.emailId || "",
+          contactNumber: data.contactNumber || "",
+          address: data.address || "",
+          logo: data.logo || ""
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    useEffect(() => {
+      getdoctor();
+    }, []);
+
+    // const handleapicall = (event) => {
+    //   event.preventDefault();
+    //   console.log("Re-Schedule button clicked");
+    //   getdoctor();
+    // };
+
     const handleBookAppointmentClick = () => {
         setShowAppointment(true);
         setCurrentComp(false)
@@ -21,19 +63,20 @@ const BooingConfirm = () => {
                     <div className="cc_wrap">
                       <div className="cc_wrap_left">
                         <img
-                          src="images/small_cat.png"
+                           src={'http://localhost:8000' + "/" + data.logo.filename}
                           className="img-responsive"
                           alt=""
                         />
                       </div>
                       <div className="cc_wrap_right">
-                        <h3>Cat Care</h3>
-                        <p>Shop No.1F Block Prime Colony</p>
+                        <h3>{data.contactNumber} </h3>
+                        <p>{data.emailId} </p>
+                        <p>{data.address}</p>
                       </div>
                     </div>
                   </div>
                   <div className="col-md-6 colony_buttons">
-                    <a href="#" className="btn btn_new2">
+                    <a href="#" className="btn btn_new2" >
                       View Detail
                     </a>
                     <a href="#" className="btn btn_new1" onClick={handleBookAppointmentClick}>
@@ -86,14 +129,14 @@ const BooingConfirm = () => {
                     </div>
                   </div>
                   <div className="col-md-6 confirm_right  slideInRight">
-                    <h3>Dr William Hemsflow</h3>
+                    <h3>{name}</h3>
                     <p>
                       <img
                         src="images/clock.png"
                         className="img-responsive"
                         alt=""
                       />{" "}
-                      10-11 AM on friday, 23rd November 2023
+                    {selectedDate}<br />{" "}{selectedSlots}
                     </p>
                   </div>
                   <div className="clearfix" />
